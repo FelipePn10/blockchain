@@ -2,10 +2,29 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"runtime"
 	"strconv"
 
 	"github.com/FelipePn10/blockchain/blockchain"
 )
+
+type CommandLine struct {
+	blockchain *blockchain.Blockchain
+}
+
+func (cli *CommandLine) printUsage() {
+	fmt.Println("Usage:")
+	fmt.Println("add -block BLOCK_DATA - add a block to the chain")
+	fmt.Println("print - Prints the blocks in the chain")
+}
+
+func (cli *CommandLine) validateArgs() {
+	if len(os.Args) < 2 {
+		cli.printUsage()
+		runtime.Goexit()
+	}
+}
 
 func main() {
 	chain := blockchain.InitBlockChain()
